@@ -1,0 +1,36 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+.resumen {
+  margin: 1rem 0;
+}
+.resenas {
+  margin-top: 2rem;
+}
+.resena {
+  border-top: 1px solid #ddd;
+  padding: 1rem 0;
+}
+.nuevaResena {
+  margin-top: 2rem;
+  border-top: 2px solid #007acc;
+  padding-top: 1rem;
+}
+.form label {
+  display: block;
+  margin-bottom: 1rem;
+}
+.form select,
+.form textarea {
+  width: 100%;
+  padding: 0.5rem;
+}
+button {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+.error {
+  color: red;
+}

@@ -1,0 +1,30 @@
+.card {
+  border: 1px solid #ddd;
+  padding: 1rem;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: 1.2rem;
+  margin: 0 0 0.5rem;
+}
+
+.authors,
+.categories {
+  font-size: 0.9rem;
+  margin: 0.25rem 0;
+  color: #555;
+}
+
+.link {
+  margin-top: 0.5rem;
+  text-decoration: none;
+  color: #007acc;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
