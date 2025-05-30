@@ -1,54 +1,66 @@
-# React + TypeScript + Vite
+## Front-end (ReseñasLibros-UI)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+ReseñasLibros-UI/
+├── public/
+│   └── index.html
+├── src/
+│   ├── api/               # Cliente Axios
+│   ├── components/        # Header, Footer, BookCard, ResenaForm…
+│   ├── contexts/          # AuthContext
+│   ├── pages/             # Home, Login, Register, BookDetail, MyReviews…
+│   ├── routes/            # AppRouter.tsx
+│   ├── types/             # Tipos TS (Libro, Resena…)
+│   └── main.tsx
+├── vite.config.ts
+└── package.json
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Requisitos previos
 
-## Expanding the ESLint configuration
+Node.js ≥ 16
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Cuenta en Vercel
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+Repo GitHub (o similar) con el código del front
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Ejecutar localmente
+Clonar el repositorio y situarse en él:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+git clone <URL-del-repo-UI>
+cd ReseñasLibros-UI
+Instalar dependencias:
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+
+npm install
+Crear un archivo .env en la raíz con:
+
+
+VITE_API_URL=https://localhost:5001/api o el puerto que especifique la ApiRest
+
+Arrancar el servidor de desarrollo:
+
+
+npm run dev
+Abrir http://localhost:5173 en el navegador.
+
+Despliegue en Vercel
+Push al repo en GitHub (o GitLab/Bitbucket).
+
+En Vercel Dashboard:
+
+New Project → Import from Git → selecciona tu repo.
+
+Framework Preset: Vite.
+
+Build Command: npm run build
+
+Output Directory: dist
+
+En Environment Variables de Vercel, define:
+
+VITE_API_URL=https://<tu-app-service>.azurewebsites.net/api
+Vercel desplegará automáticamente en cada push.
+
+Tu aplicación front quedará en:
+
+https://<tu-proyecto-vercel>.vercel.app
