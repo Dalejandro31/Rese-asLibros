@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import { getAllLibros, searchLibros } from '../api/libros'; 
+import React, { useEffect, useState } from 'react';
+import { getAllLibros, searchLibros } from '../api/libros';
 import { getAllCategorias } from '../api/categorias';
 import { getAllAutores } from '../api/autores';
 import type { Libro } from '../types/Libro';
@@ -9,47 +9,47 @@ import BookCard from '../components/BookCard/BookCard';
 import styles from './Home.module.css';
 
 const Home: React.FC = () => {
-    // Estado para datos
-    const [libros, setLibros] = useState<Libro[]>([]);
-    const [categorias, setCategorias] = useState<Categoria[]>([]);
-    const [autores, setAutores] = useState<Autor[]>([]);
-    // Filtros
-    const [titulo, setTitulo] = useState('');
-    const [autor, setAutor] = useState<number | ''>('');
-    const [categoria, setCategoria] = useState<number | ''>('');
-    
-    useEffect(() => {
-        async function fetchData() {
-        try {
-            const [{ data: L }, { data: C }, { data: A }] = await Promise.all([
-            getAllLibros(),
-            getAllCategorias(),
-            getAllAutores()
-            ]);
-            setLibros(L);
-            setCategorias(C);
-            setAutores(A);
-        } catch (err) {
-            console.error('Error cargando datos:', err);
-        }
-        }
-        fetchData();
-    }, []);
+  // Estado para datos
+  const [libros, setLibros] = useState<Libro[]>([]);
+  const [categorias, setCategorias] = useState<Categoria[]>([]);
+  const [autores, setAutores] = useState<Autor[]>([]);
+  // Filtros
+  const [titulo, setTitulo] = useState('');
+  const [autor, setAutor] = useState<number | ''>('');
+  const [categoria, setCategoria] = useState<number | ''>('');
 
-    const handleSearch = async () => {
-        try {
-        const params: { titulo?: string; autor?: string; categoriaId?: number } = {};
-        if (titulo.trim()) params.titulo = titulo;
-        if (autor)  params.autor = autores.find(a => a.autorId === autor)?.nombre || '';
-        if (categoria)  params.categoriaId = Number(categoria);
-        const { data } = await searchLibros(params);
-        setLibros(data);
-        } catch (err) {
-        console.error('Error buscando libros:', err);
-        }
-    };
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const [{ data: L }, { data: C }, { data: A }] = await Promise.all([
+          getAllLibros(),
+          getAllCategorias(),
+          getAllAutores()
+        ]);
+        setLibros(L);
+        setCategorias(C);
+        setAutores(A);
+      } catch (err) {
+        console.error('Error cargando datos:', err);
+      }
+    }
+    fetchData();
+  }, []);
 
-    return (
+  const handleSearch = async () => {
+    try {
+      const params: { titulo?: string; autor?: string; categoriaId?: number } = {};
+      if (titulo.trim()) params.titulo = titulo;
+      if (autor) params.autor = autores.find(a => a.autorId === autor)?.nombre || '';
+      if (categoria) params.categoriaId = Number(categoria);
+      const { data } = await searchLibros(params);
+      setLibros(data);
+    } catch (err) {
+      console.error('Error buscando libros:', err);
+    }
+  };
+
+  return (
     <div className={styles.container}>
       <h1 className={styles.title}>Explora nuestros libros</h1>
 
@@ -94,8 +94,8 @@ const Home: React.FC = () => {
       <div className={styles.list}>
         {libros.length
           ? libros.map(libro => (
-              <BookCard key={libro.libroId} libro={libro} />
-            ))
+            <BookCard key={libro.libroId} libro={libro} />
+          ))
           : <p>No se encontraron libros.</p>
         }
       </div>

@@ -4,6 +4,7 @@ import { createResena } from '../../api/resenas';
 import type { Resena } from '../../types/Resena';
 import styles from './ResenaForm.module.css';
 import { AxiosError } from 'axios';
+import { useNavigate } from 'react-router-dom';
 interface Props {
   libroId: number;
   onNuevaResena: (resena: Resena) => void;
@@ -12,9 +13,10 @@ interface Props {
 const ResenaForm: React.FC<Props> = ({ libroId, onNuevaResena }) => {
   const { isAuthenticated, userId } = useAuth();
   const [calificacion, setCalificacion] = useState(5);
-  const [comentario, setComentario]     = useState('');
-  const [error, setError]               = useState<string | null>(null);
-  const [submitting, setSubmitting]     = useState(false);
+  const [comentario, setComentario] = useState('');
+  const [error, setError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,7 +29,7 @@ const ResenaForm: React.FC<Props> = ({ libroId, onNuevaResena }) => {
     try {
       // Asumimos que el AuthContext inyecta el header JWT y que la API infiere usuarioId del token
       const { data: nueva } = await createResena({
-        usuarioId: userId!, 
+        usuarioId: userId!,
         libroId,
         calificacion,
         comentario
@@ -36,11 +38,15 @@ const ResenaForm: React.FC<Props> = ({ libroId, onNuevaResena }) => {
       setComentario('');
       setCalificacion(5);
     } catch (err: unknown) {
-        if (err instanceof AxiosError && err.response?.data?.mensaje) {
-          setError(err.response.data.mensaje);
-        } else {
-          setError('Error al enviar la reseña');
-        }
+      if (err instanceof AxiosError && err.response?.data?.mensaje) {
+        setError(err.response.data.mensaje);
+      } else {
+        setError('Error al enviar la reseña debes iniciar sesión.');
+        setTimeout(() => {
+          navigate('/login');
+        }, 3000);
+
+      }
     } finally {
       setSubmitting(false);
     }
@@ -56,7 +62,7 @@ const ResenaForm: React.FC<Props> = ({ libroId, onNuevaResena }) => {
           onChange={e => setCalificacion(Number(e.target.value))}
           disabled={submitting}
         >
-          {[1,2,3,4,5].map(n => (
+          {[1, 2, 3, 4, 5].map(n => (
             <option key={n} value={n}>{n} ⭐</option>
           ))}
         </select>

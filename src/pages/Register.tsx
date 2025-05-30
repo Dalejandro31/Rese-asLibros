@@ -6,24 +6,24 @@ import { AxiosError } from 'axios';
 
 const Register: React.FC = () => {
   const [username, setUsername] = useState('');
-  const [email,    setEmail]    = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error,    setError]    = useState<string | null>(null);
-  const { register }            = useAuth();
-  const navigate                = useNavigate();
+  const [error, setError] = useState<string | null>(null);
+  const { register } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       await register(username, email, password);
       navigate('/'); // redirige a Home
-     } catch (err: unknown) {
-    if (err instanceof AxiosError && err.response?.data?.mensaje) {
-      setError(err.response.data.mensaje);
-    } else {
-      setError('Error al iniciar sesión');
+    } catch (err: unknown) {
+      if (err instanceof AxiosError && err.response?.data?.mensaje) {
+        setError(err.response.data.mensaje);
+      } else {
+        setError('Error al iniciar sesión');
+      }
     }
-  }
   };
 
   return (
