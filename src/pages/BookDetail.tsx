@@ -60,7 +60,7 @@ const BookDetail: React.FC = () => {
         <h2>Reseñas</h2>
         {resenas.length === 0 && <p>No hay reseñas aún.</p>}
         {resenas.map(r => (
-          <div key={r.resenaId} className={styles.resena}>
+          <div key={r.reseñaId} className={styles.resena}>
             <p><strong>{r.username}</strong> ({new Date(r.fechaResena).toLocaleDateString()}):</p>
             <p>Calificación: {r.calificacion} ⭐</p>
             <p>{r.comentario}</p>

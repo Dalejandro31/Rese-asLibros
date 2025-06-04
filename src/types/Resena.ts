@@ -1,5 +1,5 @@
 export interface Resena {
-  resenaId: number;
+  reseñaId: number;
   usuarioId: number;
   libroId: number;
   calificacion: number;

@@ -23,7 +23,7 @@ export const ResenaEditForm: React.FC<Props> = ({ resena, onCancel, onUpdated })
         setError(null);
 
         try {
-            const { data: updated } = await updateResena(resena.resenaId, { calificacion, comentario: comentario || "" });
+            const { data: updated } = await updateResena(resena.reseñaId, { calificacion, comentario: comentario || "" });
             onUpdated(updated);
         } catch (err: unknown) {
             // 1) Imprime TODO el error para verlo en DevTools
